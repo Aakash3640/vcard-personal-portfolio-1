@@ -95,23 +95,23 @@ const filterFunc = function (selectedValue) {
 }
 
 // add event in all filter button items for large screen
-let lastClickedBtn = filterBtn[0];
+// let lastClickedBtn = filterBtn[0];
 
-for (let i = 0; i < filterBtn.length; i++) {
+// for (let i = 0; i < filterBtn.length; i++) {
 
-  filterBtn[i].addEventListener("click", function () {
+//   filterBtn[i].addEventListener("click", function () {
 
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    filterFunc(selectedValue);
+//     let selectedValue = this.innerText.toLowerCase();
+//     selectValue.innerText = this.innerText;
+//     filterFunc(selectedValue);
 
-    lastClickedBtn.classList.remove("active");
-    this.classList.add("active");
-    lastClickedBtn = this;
+//     lastClickedBtn.classList.remove("active");
+//     this.classList.add("active");
+//     lastClickedBtn = this;
 
-  });
+//   });
 
-}
+// }
 
 
 
@@ -133,6 +133,28 @@ for (let i = 0; i < formInputs.length; i++) {
 
   });
 }
+
+// Handle form submission with AJAX (fetch)
+form.addEventListener("submit", function (event) {
+  event.preventDefault();  // Prevent the default form submission (page reload)
+
+  // Collect the form data
+  const formData = new FormData(form);
+
+  // Send data via fetch
+  fetch("/submit-form", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())  // Assuming the server returns a JSON response
+  .then(data => {
+    // Display the server response (optional)
+    document.getElementById("response").innerHTML = `<p>Server response: ${data.message}</p>`;
+  })
+  .catch(error => {
+    console.error("Error submitting the form:", error);
+  });
+});
 
 
 
